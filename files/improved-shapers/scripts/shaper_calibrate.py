@@ -1,5 +1,6 @@
 # Automatic calibration of input shapers
-#
+"""Mathematical helpers for estimating optimal input shaper settings."""
+
 # Copyright (C) 2020  Dmitry Butyugin <dmbutyugin@google.com>
 #
 # This file may be distributed under the terms of the GNU GPLv3 license.
@@ -20,6 +21,8 @@ AUTOTUNE_SHAPERS = ['zv', 'mzv', 'ei', '2hump_ei', '3hump_ei']
 ######################################################################
 
 class CalibrationData:
+    """Container holding power spectral density information."""
+
     def __init__(self, freq_bins, psd_sum, psd_x, psd_y, psd_z):
         self.freq_bins = freq_bins
         self.psd_sum = psd_sum
@@ -31,6 +34,7 @@ class CalibrationData:
                          'all': self.psd_sum}
         self.data_sets = 1
     def add_data(self, other):
+        """Merge additional measurement data into this instance."""
         np = self.numpy
         joined_data_sets = self.data_sets + other.data_sets
         for psd, other_psd in zip(self._psd_list, other._psd_list):
@@ -42,8 +46,11 @@ class CalibrationData:
             psd[:] = (psd + other_normalized) * (1. / joined_data_sets)
         self.data_sets = joined_data_sets
     def set_numpy(self, numpy):
+        """Store a reference to the numpy module used for calculations."""
         self.numpy = numpy
+
     def normalize_to_frequencies(self):
+        """Normalize PSD values by their corresponding frequency bins."""
         for psd in self._psd_list:
             # Avoid division by zero errors
             psd /= self.freq_bins + .1
@@ -58,6 +65,8 @@ CalibrationResult = collections.namedtuple(
         ('name', 'freq', 'vals', 'vibrs', 'smoothing', 'score', 'max_accel'))
 
 class ShaperCalibrate:
+    """Algorithms for analysing vibration data and suggesting shapers."""
+
     def __init__(self, printer):
         self.printer = printer
         self.error = printer.command_error if printer else Exception
@@ -70,6 +79,7 @@ class ShaperCalibrate:
                     "docs/Measuring_Resonances.md for more details).")
 
     def background_process_exec(self, method, args):
+        """Run heavy computations in a background process."""
         if self.printer is None:
             return method(*args)
         import queuelogger
@@ -146,6 +156,7 @@ class ShaperCalibrate:
         return freqs, psd
 
     def calc_freq_response(self, raw_values):
+        """Convert accelerometer readings into a frequency response."""
         np = self.numpy
         if raw_values is None:
             return None

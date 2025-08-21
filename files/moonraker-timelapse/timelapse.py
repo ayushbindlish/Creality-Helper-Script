@@ -1,5 +1,6 @@
 # Moonraker Timelapse component for K1 Series
-#
+"""Capture and render timelapse videos using Moonraker services."""
+
 # Copyright (C) 2021 Christoph Frei <fryakatkop@gmail.com>
 #
 # This file may be distributed under the terms of the GNU GPLv3 license.
@@ -34,8 +35,10 @@ if TYPE_CHECKING:
 
 
 class Timelapse:
+    """Manage frame capture and video rendering for timelapses."""
 
     def __init__(self, confighelper: ConfigHelper) -> None:
+        """Initialize configuration and register API endpoints."""
 
         # setup vars
         self.renderisrunning = False
@@ -121,6 +124,7 @@ class Timelapse:
         # check if ffmpeg is installed
         self.ffmpeg_installed = os.path.isfile(self.ffmpeg_binary_path)
         if not self.ffmpeg_installed:
+            # Without ffmpeg we cannot render videos automatically.
             self.config['autorender'] = False
             logging.info(f"timelapse: {self.ffmpeg_binary_path} \
                         not found please install to use render functionality")
@@ -168,9 +172,11 @@ class Timelapse:
             self.webrequest_lastframeinfo)
 
     async def component_init(self) -> None:
+        """Async initialization performed once the component is loaded."""
         await self.getWebcamConfig()
 
     def overwriteDbconfigWithConfighelper(self) -> None:
+        """Overlay database settings with values from the config file."""
         blockedsettings = []
 
         for config in self.confighelper.get_options():
@@ -193,6 +199,7 @@ class Timelapse:
         logging.debug(f"blockedsettings {self.config['blockedsettings']}")
 
     async def getWebcamConfig(self) -> None:
+        """Fetch webcam definitions from the Moonraker database."""
         # Read Webcam config from Database
         webcam_name = self.config['camera']
         try:
@@ -839,4 +846,5 @@ class Timelapse:
 
 
 def load_component(config: ConfigHelper) -> Timelapse:
+    """Factory used by Moonraker to load the component."""
     return Timelapse(config)
