@@ -124,7 +124,11 @@ function error_msg() {
 }
 
 function run() {
-  clear
+  if [ -n "$DEBUG" ]; then
+    echo "Running $1"
+  else
+    clear
+  fi
   # $1 - Action performed
   $1
   # $2 - Menu launched after action is completed
