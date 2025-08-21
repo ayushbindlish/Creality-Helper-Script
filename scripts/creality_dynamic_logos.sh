@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage creality dynamic logos.
+
+
 set -e
 
 function creality_dynamic_logos_message(){
@@ -13,6 +16,7 @@ function creality_dynamic_logos_message(){
   bottom_line
 }
 
+# Creality dynamic logos installation function
 function install_creality_dynamic_logos(){
   creality_dynamic_logos_message
   local yn

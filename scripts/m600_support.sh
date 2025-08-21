@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage m600 support.
+
+
 set -e
 
 function m600_support_message(){
@@ -13,6 +16,7 @@ function m600_support_message(){
   bottom_line
 }
 
+# M600 support installation function
 function install_m600_support(){
   m600_support_message
   local yn
@@ -75,6 +79,7 @@ function install_m600_support(){
   done
 }
 
+# M600 support removal function
 function remove_m600_support(){
   m600_support_message
   local yn

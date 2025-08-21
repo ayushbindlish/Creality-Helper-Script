@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage functions.
+
+
 set -e
 
 function top_line() {
@@ -91,10 +94,12 @@ function system_line() {
   printf " │ ${green}%s${white}%s${white}\e[97m%s%-*s%s${white}│\n" "$title" "$separator" "$value" $value_padding ''
 }
 
+# Msg installation function
 function install_msg() {
   read -p "${white} Are you sure you want to install ${green}${1} ${white}? (${yellow}y${white}/${yellow}n${white}): ${yellow}" $2
 }
 
+# Msg removal function
 function remove_msg() {
   read -p "${white} Are you sure you want to remove ${green}${1} ${white}? (${yellow}y${white}/${yellow}n${white}): ${yellow}" $2
 }

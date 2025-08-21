@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage save zoffset macros.
+
+
 set -e
 
 function save_zoffset_macros_message(){
@@ -12,6 +15,7 @@ function save_zoffset_macros_message(){
   bottom_line
 }
 
+# Save zoffset macros installation function
 function install_save_zoffset_macros(){
   save_zoffset_macros_message
   local yn
@@ -47,6 +51,7 @@ function install_save_zoffset_macros(){
   done
 }
 
+# Save zoffset macros removal function
 function remove_save_zoffset_macros(){
   save_zoffset_macros_message
   local yn

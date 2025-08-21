@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# Summary: Script to manage install menu 3KE.
+
+
 set -e
 
+# Menu ui 3ke installation function
 function install_menu_ui_3ke() {
   top_line
   title '[ INSTALL MENU ]' "${yellow}"
@@ -45,6 +49,7 @@ function install_menu_ui_3ke() {
   bottom_line
 }
 
+# Menu 3ke installation function
 function install_menu_3ke() {
   clear
   install_menu_ui_3ke

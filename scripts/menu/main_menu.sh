@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage main menu.
+
+
 set -e
 
 if [ ! -f /etc/init.d/S58factoryreset ]; then
@@ -79,6 +82,7 @@ function main_menu_ui() {
   bottom_line
 }
 
+# Manages the main menu
 function main_menu() {
   clear
   main_menu_ui

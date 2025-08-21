@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage tools.
+
+
 set -e
 
 function prevent_updating_klipper_files_message(){

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage kamp.
+
+
 set -e
 
 function kamp_message(){
@@ -16,6 +19,7 @@ function kamp_message(){
   bottom_line
 }
 
+# Kamp installation function
 function install_kamp(){
   kamp_message
   local yn
@@ -101,6 +105,7 @@ function install_kamp(){
   done
 }
 
+# Kamp removal function
 function remove_kamp(){
   kamp_message
   local yn

@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# Summary: Script to manage remove menu 10SE.
+
+
 set -e
 
+# Menu ui 10se removal function
 function remove_menu_ui_10se() {
   top_line
   title '[ REMOVE MENU ]' "${yellow}"
@@ -43,6 +47,7 @@ function remove_menu_ui_10se() {
   bottom_line
 }
 
+# Menu 10se removal function
 function remove_menu_10se() {
   clear
   remove_menu_ui_10se

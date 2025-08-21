@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage info menu K1.
+
+
 set -e
 
 function check_folder_k1() {

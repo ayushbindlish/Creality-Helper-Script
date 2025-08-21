@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage tools menu K1.
+
+
 set -e
 
 function tools_menu_ui_k1() {

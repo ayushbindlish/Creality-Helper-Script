@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage customize menu 3V3.
+
+
 set -e
 
 function customize_menu_ui_3v3() {

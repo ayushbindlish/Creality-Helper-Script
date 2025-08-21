@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage tools menu 10SE.
+
+
 set -e
 
 function tools_menu_ui_10se() {

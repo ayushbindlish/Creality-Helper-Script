@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# Summary: Script to manage install menu E5M.
+
+
 set -e
 
+# Menu ui e5m installation function
 function install_menu_ui_e5m() {
   top_line
   title '[ INSTALL MENU ]' "${yellow}"
@@ -50,6 +54,7 @@ function install_menu_ui_e5m() {
   bottom_line
 }
 
+# Menu e5m installation function
 function install_menu_e5m() {
   clear
   install_menu_ui_e5m
