@@ -11,3 +11,8 @@ If you don't know what you're doing, I don't recommend following this guide.
 Guide to use it is available here: [Wiki](https://guilouz.github.io/Creality-Helper-Script-Wiki/)
 
 <br />
+
+## For Developers
+
+See [Developer Guide](README.dev.md).
+
