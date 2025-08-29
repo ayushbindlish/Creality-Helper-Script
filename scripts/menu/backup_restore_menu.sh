@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage backup restore menu.
+
+
 set -e
 
 function backup_restore_menu_ui() {
@@ -22,6 +25,7 @@ function backup_restore_menu_ui() {
   bottom_line
 }
 
+# Manages the backup restore menu
 function backup_restore_menu() {
   clear
   backup_restore_menu_ui

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage guppy screen.
+
+
 set -e
 
 function guppy_screen_message(){
@@ -13,6 +16,7 @@ function guppy_screen_message(){
   bottom_line
 }
 
+# Guppy screen installation function
 function install_guppy_screen(){
   guppy_screen_message
   local yn
@@ -194,6 +198,7 @@ function install_guppy_screen(){
   done
 }
 
+# Guppy screen removal function
 function remove_guppy_screen(){
   guppy_screen_message
   local yn

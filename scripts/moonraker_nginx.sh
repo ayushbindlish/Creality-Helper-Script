@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage moonraker nginx.
+
+
 set -e
 
 function moonraker_nginx_message(){
@@ -29,6 +32,7 @@ function moonraker_3v3_message(){
   bottom_line
 }
 
+# Moonraker nginx installation function
 function install_moonraker_nginx(){
   moonraker_nginx_message
   local yn
@@ -85,6 +89,7 @@ function install_moonraker_nginx(){
   done
 }
 
+# Moonraker nginx removal function
 function remove_moonraker_nginx(){
   moonraker_nginx_message
   local yn
@@ -120,6 +125,7 @@ function remove_moonraker_nginx(){
   done
 }
 
+# Moonraker 3v3 installation function
 function install_moonraker_3v3(){
   moonraker_3v3_message
   local yn
@@ -185,6 +191,7 @@ function install_moonraker_3v3(){
   done
 }
 
+# Moonraker 3v3 removal function
 function remove_moonraker_3v3(){
   moonraker_3v3_message
   local yn

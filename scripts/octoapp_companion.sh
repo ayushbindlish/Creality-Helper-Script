@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage octoapp companion.
+
+
 set -e
 
 function octoapp_companion_message(){
@@ -13,6 +16,7 @@ function octoapp_companion_message(){
   bottom_line
 }
 
+# Octoapp companion installation function
 function install_octoapp_companion(){
   octoapp_companion_message
   local yn
@@ -42,6 +46,7 @@ function install_octoapp_companion(){
   done
 }
 
+# Octoapp companion removal function
 function remove_octoapp_companion(){
   octoapp_companion_message
   local yn

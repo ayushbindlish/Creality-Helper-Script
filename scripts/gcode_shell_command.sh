@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage gcode shell command.
+
+
 set -e
 
 function gcode_shell_command_message(){
@@ -14,6 +17,7 @@ function gcode_shell_command_message(){
   bottom_line
 }
 
+# Gcode shell command installation function
 function install_gcode_shell_command(){
   gcode_shell_command_message
   local yn
@@ -37,6 +41,7 @@ function install_gcode_shell_command(){
   done
 }
 
+# Gcode shell command removal function
 function remove_gcode_shell_command(){
   gcode_shell_command_message
   local yn

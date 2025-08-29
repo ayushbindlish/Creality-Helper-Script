@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# Summary: Script to manage remove menu 3KE.
+
+
 set -e
 
+# Menu ui 3ke removal function
 function remove_menu_ui_3ke() {
   top_line
   title '[ REMOVE MENU ]' "${yellow}"
@@ -45,6 +49,7 @@ function remove_menu_ui_3ke() {
   bottom_line
 }
 
+# Menu 3ke removal function
 function remove_menu_3ke() {
   clear
   remove_menu_ui_3ke

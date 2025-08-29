@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage mainsail.
+
+
 set -e
 
 function mainsail_message(){
@@ -15,6 +18,7 @@ function mainsail_message(){
   bottom_line
 }
 
+# Mainsail installation function
 function install_mainsail(){
   mainsail_message
   local yn
@@ -58,6 +62,7 @@ function install_mainsail(){
   done
 }
 
+# Mainsail removal function
 function remove_mainsail(){
   mainsail_message
   local yn

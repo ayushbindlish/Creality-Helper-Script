@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# Summary: Script to manage install menu 3V3.
+
+
 set -e
 
+# Menu ui 3v3 installation function
 function install_menu_ui_3v3() {
   top_line
   title '[ INSTALL MENU ]' "${yellow}"
@@ -47,6 +51,7 @@ function install_menu_ui_3v3() {
   bottom_line
 }
 
+# Menu 3v3 installation function
 function install_menu_3v3() {
   clear
   install_menu_ui_3v3

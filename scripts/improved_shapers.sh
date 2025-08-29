@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage improved shapers.
+
+
 set -e
 
 function improved_shapers_message(){
@@ -13,6 +16,7 @@ function improved_shapers_message(){
   bottom_line
 }
 
+# Improved shapers installation function
 function install_improved_shapers(){
   improved_shapers_message
   local yn
@@ -80,6 +84,7 @@ function install_improved_shapers(){
   done
 }
 
+# Improved shapers removal function
 function remove_improved_shapers(){
   improved_shapers_message
   local yn

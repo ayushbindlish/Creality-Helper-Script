@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage screws tilt adjust.
+
+
 set -e
 
 function screws_tilt_adjust_message(){
@@ -13,6 +16,7 @@ function screws_tilt_adjust_message(){
   bottom_line
 }
 
+# Screws tilt adjust installation function
 function install_screws_tilt_adjust(){
   screws_tilt_adjust_message
   local yn
@@ -82,6 +86,7 @@ function install_screws_tilt_adjust(){
   done
 }
 
+# Screws tilt adjust removal function
 function remove_screws_tilt_adjust(){
   screws_tilt_adjust_message
   local yn

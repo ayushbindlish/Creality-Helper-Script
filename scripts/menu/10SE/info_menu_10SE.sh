@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage info menu 10SE.
+
+
 set -e
 
 function check_folder_10se() {

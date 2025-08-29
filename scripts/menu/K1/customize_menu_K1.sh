@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage customize menu K1.
+
+
 set -e
 
 function customize_menu_ui_k1() {

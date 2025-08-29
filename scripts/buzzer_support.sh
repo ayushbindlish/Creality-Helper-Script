@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage buzzer support.
+
+
 set -e
 
 function buzzer_support_message(){
@@ -12,6 +15,7 @@ function buzzer_support_message(){
   bottom_line
 }
 
+# Buzzer support installation function
 function install_buzzer_support(){
   buzzer_support_message
   local yn
@@ -48,6 +52,7 @@ function install_buzzer_support(){
   done
 }
 
+# Buzzer support removal function
 function remove_buzzer_support(){
   buzzer_support_message
   local yn
