@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 ###!/usr/data/rootfs/usr/bin/python3
+"""Utilities for analyzing resonance data and suggesting input shapers."""
+
 # Shaper auto-calibration script
 #
 # Copyright (C) 2020  Dmitry Butyugin <dmbutyugin@google.com>
@@ -15,7 +17,9 @@ import json
 
 MAX_TITLE_LENGTH=65
 
+
 def parse_log(logname):
+    """Parse Klipper resonance log or raw accelerometer data."""
     with open(logname) as f:
         for header in f:
             if not header.startswith('#'):
@@ -41,6 +45,7 @@ def parse_log(logname):
 
 # Find the best shaper parameters
 def calibrate_shaper(datas, csv_output, max_smoothing):
+    """Determine optimal shaper parameters from accelerometer data."""
     helper = shaper_calibrate.ShaperCalibrate(printer=None)
     if isinstance(datas[0], shaper_calibrate.CalibrationData):
         calibration_data = datas[0]
@@ -65,6 +70,7 @@ def calibrate_shaper(datas, csv_output, max_smoothing):
 
 def plot_freq_response(lognames, calibration_data, shapers,
                        selected_shaper, max_freq):
+    """Visualize the frequency response and suggested shapers."""
     freqs = calibration_data.freq_bins
     psd = calibration_data.psd_sum[freqs <= max_freq]
     px = calibration_data.psd_x[freqs <= max_freq]
@@ -123,6 +129,7 @@ def plot_freq_response(lognames, calibration_data, shapers,
 ######################################################################
 
 def setup_matplotlib(output_to_file):
+    """Configure matplotlib for on-screen display or file output."""
     global matplotlib
     if output_to_file:
         matplotlib.rcParams.update({'figure.autolayout': True})
@@ -131,6 +138,7 @@ def setup_matplotlib(output_to_file):
     import matplotlib.ticker
 
 def main():
+    """Program entry point when executed as a script."""
     # Parse command-line arguments
     usage = "%prog [options] <logs>"
     opts = optparse.OptionParser(usage)

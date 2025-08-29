@@ -1,3 +1,5 @@
+"""Expose selected shell commands as G-code macros."""
+
 # Run a shell command via gcode
 #
 # Copyright (C) 2019  Eric Callahan <arksine.code@gmail.com>
@@ -8,8 +10,12 @@ import shlex
 import subprocess
 import logging
 
+
 class ShellCommand:
+    """Wrapper that executes configured shell commands from G-code."""
+
     def __init__(self, config):
+        """Parse configuration and register the gcode command."""
         self.name = config.get_name().split()[-1]
         self.printer = config.get_printer()
         self.gcode = self.printer.lookup_object('gcode')
@@ -20,12 +26,14 @@ class ShellCommand:
         self.verbose = config.getboolean('verbose', True)
         self.proc_fd = None
         self.partial_output = ""
+        # Register ``RUN_SHELL_COMMAND`` so firmware can trigger the process
         self.gcode.register_mux_command(
             "RUN_SHELL_COMMAND", "CMD", self.name,
             self.cmd_RUN_SHELL_COMMAND,
             desc=self.cmd_RUN_SHELL_COMMAND_help)
 
     def _process_output(self, eventime):
+        """Forward output from the running process to the user."""
         if self.proc_fd is None:
             return
         try:
@@ -45,7 +53,9 @@ class ShellCommand:
         self.gcode.respond_info(data)
 
     cmd_RUN_SHELL_COMMAND_help = "Run a linux shell command"
+
     def cmd_RUN_SHELL_COMMAND(self, params):
+        """Execute the configured shell command with optional parameters."""
         gcode_params = params.get('PARAMS','')
         gcode_params = shlex.split(gcode_params)
         reactor = self.printer.get_reactor()
@@ -57,6 +67,7 @@ class ShellCommand:
                 "shell_command: Command {%s} failed" % (self.name))
             raise self.gcode.error("Error running command {%s}" % (self.name))
         if self.verbose:
+            # Hook the process' stdout to the reactor so output is streamed
             self.proc_fd = proc.stdout.fileno()
             self.gcode.respond_info("Running Command {%s}...:" % (self.name))
             hdl = reactor.register_fd(self.proc_fd, self._process_output)
@@ -84,4 +95,5 @@ class ShellCommand:
 
 
 def load_config_prefix(config):
+    """Instantiate the :class:`ShellCommand` helper."""
     return ShellCommand(config)

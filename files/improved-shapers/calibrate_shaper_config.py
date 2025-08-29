@@ -1,5 +1,11 @@
+"""Configuration storage for input shaper calibration results."""
+
+
 class CalibrateShaperConfig:
+    """Persist input shaper parameters selected during calibration."""
+
     def __init__(self, config):
+        """Initialize default shaper settings and register the save command."""
         self.printer = config.get_printer();
         
         shaper_type = config.get('shaper_type', 'mzv')
@@ -14,9 +20,11 @@ class CalibrateShaperConfig:
         gcode.register_command("SAVE_INPUT_SHAPER", self.cmd_save_input_shaper)
 
     def get_status(self, eventtime):
+        """Expose current shaper values for external status queries."""
         return {}
 
     def cmd_save_input_shaper(self, gcmd):
+        """Handle ``SAVE_INPUT_SHAPER`` to persist calibration results."""
         self.shaper_freq_x = gcmd.get_float('SHAPER_FREQ_X',
                                             self.shaper_freq_x, minval=0.)
         self.shaper_type_x = gcmd.get('SHAPER_TYPE_X', self.shaper_type_x)
@@ -36,4 +44,5 @@ class CalibrateShaperConfig:
                        '%.1f' % (self.shaper_freq_y,))
 
 def load_config(config):
+    """Instantiate and return the configuration helper."""
     return CalibrateShaperConfig(config)

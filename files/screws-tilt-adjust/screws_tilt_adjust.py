@@ -1,5 +1,11 @@
-# Helper script to adjust bed screws tilt using Z probe
-#
+"""Utility to assist with manual bed leveling.
+
+This module implements a helper that probes several points on the build
+plate and computes how many turns each bed screw must be rotated to bring the
+bed into alignment.  The logic interacts with Klipper's probing helpers and
+exposes a ``SCREWS_TILT_CALCULATE`` gcode command to the firmware.
+"""
+
 # Copyright (C) 2019  Rui Caridade <rui.mcbc@gmail.com>
 # Copyright (C) 2021  Matthew Lloyd <github@matthewlloyd.net>
 #
@@ -7,8 +13,12 @@
 import math
 from . import probe
 
+
 class ScrewsTiltAdjust:
+    """Helper object that performs the screw tilt calculations."""
+
     def __init__(self, config):
+        """Store configuration and register the helper with the printer."""
         self.config = config
         self.printer = config.get_printer()
         self.screws = []
@@ -37,16 +47,22 @@ class ScrewsTiltAdjust:
                                                     self.probe_finalize,
                                                     default_points=points)
         self.probe_helper.minimum_points(3)
-        # Register command
+        # Register command with the firmware so the user can trigger this
+        # computation directly from the printer console or macros.
         self.gcode = self.printer.lookup_object('gcode')
-        self.gcode.register_command("SCREWS_TILT_CALCULATE",
-                                    self.cmd_SCREWS_TILT_CALCULATE,
-                                    desc=self.cmd_SCREWS_TILT_CALCULATE_help)
-    cmd_SCREWS_TILT_CALCULATE_help = "Tool to help adjust bed leveling " \
-                                     "screws by calculating the number " \
-                                     "of turns to level it."
+        self.gcode.register_command(
+            "SCREWS_TILT_CALCULATE",
+            self.cmd_SCREWS_TILT_CALCULATE,
+            desc=self.cmd_SCREWS_TILT_CALCULATE_help,
+        )
+
+    cmd_SCREWS_TILT_CALCULATE_help = (
+        "Tool to help adjust bed leveling screws by calculating "
+        "the number of turns to level it."
+    )
 
     def cmd_SCREWS_TILT_CALCULATE(self, gcmd):
+        """Entry point for the ``SCREWS_TILT_CALCULATE`` gcode command."""
         self.max_diff = gcmd.get_float("MAX_DEVIATION", None)
         # Option to force all turns to be in the given direction (CW or CCW)
         direction = gcmd.get("DIRECTION", default=None)
@@ -60,15 +76,24 @@ class ScrewsTiltAdjust:
         self.probe_helper.start_probe(gcmd)
 
     def get_status(self, eventtime):
-        return {'error': self.max_diff_error,
+        """Return the latest computation results for status queries."""
+        return {
+            'error': self.max_diff_error,
             'max_deviation': self.max_diff,
-            'results': self.results}
+            'results': self.results,
+        }
 
     def probe_finalize(self, offsets, positions):
+        """Callback executed after probing all screw locations.
+
+        The function evaluates the Z offsets read from the probe and computes
+        how many turns each screw must be rotated.  The results are cached so
+        they may be reported back to the user via ``get_status``.
+        """
         self.results = {}
         self.max_diff_error = False
         # Factors used for CW-M3, CCW-M3, CW-M4, CCW-M4, CW-M5, CCW-M5, CW-M6
-        #and CCW-M6
+        # and CCW-M6
         threads_factor = {0: 0.5, 1: 0.5, 2: 0.7, 3: 0.7, 4: 0.8, 5: 0.8,
         6: 1.0, 7: 1.0}
         is_clockwise_thread = (self.thread & 1) == 0
@@ -128,4 +153,5 @@ class ScrewsTiltAdjust:
                 "Adjust screws and restart print.".format(self.max_diff))
 
 def load_config(config):
+    """Instantiate and return the :class:`ScrewsTiltAdjust` helper."""
     return ScrewsTiltAdjust(config)

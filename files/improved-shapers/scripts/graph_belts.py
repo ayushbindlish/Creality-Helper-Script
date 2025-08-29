@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Analyze accelerometer data to compare CoreXY belt performance."""
 
 #################################################
 ######## CoreXY BELTS CALIBRATION SCRIPT ########
@@ -84,6 +85,7 @@ def is_file_open(filepath):
 
 # Calculate estimated "power spectral density" using existing Klipper tools
 def calc_freq_response(data):
+    """Return PSD information for a set of accelerometer samples."""
     helper = shaper_calibrate.ShaperCalibrate(printer=None)
     return helper.process_accelerometer_data(data)
 
@@ -91,6 +93,7 @@ def calc_freq_response(data):
 # Calculate or estimate a "similarity" factor between two PSD curves and scale it to a percentage. This is
 # used here to quantify how close the two belts path behavior and responses are close together.
 def compute_curve_similarity_factor(signal1, signal2):
+    """Estimate how similar two PSD curves are on a 0-100% scale."""
     freqs1 = signal1.freqs
     psd1 = signal1.psd
     freqs2 = signal2.freqs
@@ -113,6 +116,7 @@ def compute_curve_similarity_factor(signal1, signal2):
 # This find all the peaks in a curve by looking at when the derivative term goes from positive to negative
 # Then only the peaks found above a threshold are kept to avoid capturing peaks in the low amplitude noise of a signal
 def detect_peaks(psd, freqs, window_size=5, vicinity=3):
+    """Identify significant peaks in a PSD curve."""
     # Smooth the curve using a moving average to avoid catching peaks everywhere in noisy signals
     kernel = np.ones(window_size) / window_size
     smoothed_psd = np.convolve(psd, kernel, mode='valid')
@@ -136,6 +140,7 @@ def detect_peaks(psd, freqs, window_size=5, vicinity=3):
 # This function create pairs of peaks that are close in frequency on two curves (that are known
 # to be resonances points and must be similar on both belts on a CoreXY kinematic)
 def pair_peaks(peaks1, freqs1, psd1, peaks2, freqs2, psd2):
+    """Match peaks from two signals based on frequency proximity."""
     # Compute a dynamic detection threshold to filter and pair peaks efficiently
     # even if the signal is very noisy (this get clipped to a maximum of 10Hz diff)
     distances = []
@@ -182,6 +187,7 @@ def pair_peaks(peaks1, freqs1, psd1, peaks2, freqs2, psd2):
 ######################################################################
 
 def compute_spectrogram(data):
+    """Generate a spectrogram for visualising vibration over time."""
     import scipy
 
     N = data.shape[0]
