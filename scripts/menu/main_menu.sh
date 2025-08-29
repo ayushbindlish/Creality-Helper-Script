@@ -1,30 +1,35 @@
 #!/bin/sh
 
 # Summary: Script to manage main menu.
-
+# Main entry point for the interactive text interface.  All menu navigation
+# starts here once `helper.sh` has loaded every script.
 
 set -e
 
+# Ensure the factory reset service exists so that the "Reset" option works.
 if [ ! -f /etc/init.d/S58factoryreset ]; then
   cp /usr/data/helper-script/files/services/S58factoryreset /etc/init.d/S58factoryreset
   chmod 755 /etc/init.d/S58factoryreset
 fi
 
+# Detect which printer model is running the script.  Some menu options are
+# only applicable to certain models.
 get_model=$( /usr/bin/get_sn_mac.sh model 2>&1 )
-if echo "$get_model" | grep -iq "K1"; then 
+if echo "$get_model" | grep -iq "K1"; then
   model="K1"
-elif echo "$get_model" | grep -iq "F001"; then 
+elif echo "$get_model" | grep -iq "F001"; then
   model="3V3"
-elif echo "$get_model" | grep -iq "F002"; then 
+elif echo "$get_model" | grep -iq "F002"; then
   model="3V3"
-elif echo "$get_model" | grep -iq "F005"; then 
+elif echo "$get_model" | grep -iq "F005"; then
   model="3KE"
-elif echo "$get_model" | grep -iq "F003"; then 
+elif echo "$get_model" | grep -iq "F003"; then
   model="10SE"
 elif echo "$get_model" | grep -iq "F004"; then
   model="E5M"
 fi
 
+# Display the current version tag of the helper script in the menu footer.
 function get_script_version() {
   local version
   cd "${HELPER_SCRIPT_FOLDER}"
@@ -32,6 +37,7 @@ function get_script_version() {
   echo "${cyan}${version}${white}"
 }
 
+# Helper for formatting version text to match the menu border width.
 function version_line() {
   local content="$1"
   local content_length="${#content}"
@@ -40,6 +46,7 @@ function version_line() {
   printf " │ %*s%s%s\n" $padding_length '' "$content" " │"
 }
 
+# Build a title string depending on the detected printer model.
 function script_title() {
   local title
   if [ "$model" = "K1" ]; then
@@ -58,6 +65,8 @@ function script_title() {
   echo "${title}"
 }
 
+# Draw the main menu screen.  The UI helpers used here are defined in other
+# sourced scripts.
 function main_menu_ui() {
   top_line
   title "• HELPER SCRIPT FOR CREALITY $(script_title) •" "${blue}"
@@ -83,6 +92,9 @@ function main_menu_ui() {
 }
 
 # Manages the main menu
+# Main menu loop.  Based on the user selection the appropriate sub menu is
+# displayed.  Each of the called functions is defined in a printer specific
+# script loaded by `helper.sh`.
 function main_menu() {
   clear
   main_menu_ui
