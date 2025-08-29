@@ -3,6 +3,24 @@
 # Entry point for the Creality Helper Script.  The file is executed on the
 # printer and is responsible for loading every other shell script in this
 # repository before displaying the interactive menu.
+set -e
+
+# Parse arguments
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -d|--debug)
+      export DEBUG=1
+      ;;
+  esac
+  shift
+done
+
+if [ -n "$DEBUG" ]; then
+  export PS4='+ $0:$LINENO '
+  set -x
+else
+  clear
+fi
 
 set -e               # exit immediately on errors
 clear                 # start with a clean terminal

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage entware.
+
+
 set -e
 
 function entware_message(){
@@ -13,6 +16,7 @@ function entware_message(){
   bottom_line
 }
 
+# Entware installation function
 function install_entware(){
   entware_message
   local yn
@@ -38,6 +42,7 @@ function install_entware(){
   done
 }
 
+# Entware removal function
 function remove_entware(){
   entware_message
   local yn

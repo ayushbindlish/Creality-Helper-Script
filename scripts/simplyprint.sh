@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage simplyprint.
+
+
 set -e
 
 function simplyprint_message(){
@@ -14,6 +17,7 @@ function simplyprint_message(){
   bottom_line
 }
 
+# Simplyprint installation function
 function install_simplyprint(){
   simplyprint_message
   local yn
@@ -42,6 +46,7 @@ function install_simplyprint(){
   done
 }
 
+# Simplyprint removal function
 function remove_simplyprint(){
   simplyprint_message
   local yn

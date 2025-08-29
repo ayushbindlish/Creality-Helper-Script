@@ -1,5 +1,6 @@
 # Definitions of the supported input shapers
-#
+"""Mathematical definitions of the input shapers used by Klipper."""
+
 # Copyright (C) 2020-2021  Dmitry Butyugin <dmbutyugin@google.com>
 #
 # This file may be distributed under the terms of the GNU GPLv3 license.
@@ -12,9 +13,11 @@ InputShaperCfg = collections.namedtuple(
         'InputShaperCfg', ('name', 'init_func', 'min_freq'))
 
 def get_none_shaper():
+    """Return a no-op shaper that applies no smoothing."""
     return ([], [])
 
 def get_zv_shaper(shaper_freq, damping_ratio):
+    """Two-impulse ZV shaper."""
     df = math.sqrt(1. - damping_ratio**2)
     K = math.exp(-damping_ratio * math.pi / df)
     t_d = 1. / (shaper_freq * df)
@@ -23,6 +26,7 @@ def get_zv_shaper(shaper_freq, damping_ratio):
     return (A, T)
 
 def get_zvd_shaper(shaper_freq, damping_ratio):
+    """Three-impulse ZVD shaper."""
     df = math.sqrt(1. - damping_ratio**2)
     K = math.exp(-damping_ratio * math.pi / df)
     t_d = 1. / (shaper_freq * df)
@@ -31,6 +35,7 @@ def get_zvd_shaper(shaper_freq, damping_ratio):
     return (A, T)
 
 def get_mzv_shaper(shaper_freq, damping_ratio):
+    """Three-impulse MZV shaper."""
     df = math.sqrt(1. - damping_ratio**2)
     K = math.exp(-.75 * damping_ratio * math.pi / df)
     t_d = 1. / (shaper_freq * df)
@@ -44,6 +49,7 @@ def get_mzv_shaper(shaper_freq, damping_ratio):
     return (A, T)
 
 def get_ei_shaper(shaper_freq, damping_ratio):
+    """Three-impulse EI shaper that targets vibration tolerance."""
     v_tol = 1. / SHAPER_VIBRATION_REDUCTION # vibration tolerance
     df = math.sqrt(1. - damping_ratio**2)
     K = math.exp(-damping_ratio * math.pi / df)
@@ -58,6 +64,7 @@ def get_ei_shaper(shaper_freq, damping_ratio):
     return (A, T)
 
 def get_2hump_ei_shaper(shaper_freq, damping_ratio):
+    """Four-impulse EI shaper with two vibration nulls."""
     v_tol = 1. / SHAPER_VIBRATION_REDUCTION # vibration tolerance
     df = math.sqrt(1. - damping_ratio**2)
     K = math.exp(-damping_ratio * math.pi / df)
@@ -75,6 +82,7 @@ def get_2hump_ei_shaper(shaper_freq, damping_ratio):
     return (A, T)
 
 def get_3hump_ei_shaper(shaper_freq, damping_ratio):
+    """Five-impulse EI shaper with three vibration nulls."""
     v_tol = 1. / SHAPER_VIBRATION_REDUCTION # vibration tolerance
     df = math.sqrt(1. - damping_ratio**2)
     K = math.exp(-damping_ratio * math.pi / df)

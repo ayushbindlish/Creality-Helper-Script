@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# Summary: Script to manage creality web interface.
+
+
 set -e
 
+# Creality web interface message removal function
 function remove_creality_web_interface_message(){
   top_line
   title 'Remove Creality Web Interface' "${yellow}"
@@ -23,6 +27,7 @@ function restore_creality_web_interface_message(){
   bottom_line
 }
 
+# Creality web interface removal function
 function remove_creality_web_interface(){
   remove_creality_web_interface_message
   local yn

@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# Summary: Script to manage remove menu E5M.
+
+
 set -e
 
+# Menu ui e5m removal function
 function remove_menu_ui_e5m() {
   top_line
   title '[ REMOVE MENU ]' "${yellow}"
@@ -50,6 +54,7 @@ function remove_menu_ui_e5m() {
   bottom_line
 }
 
+# Menu e5m removal function
 function remove_menu_e5m() {
   clear
   remove_menu_ui_e5m

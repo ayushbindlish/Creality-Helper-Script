@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage fans control macros.
+
+
 set -e
 
 function fans_control_macros_message(){
@@ -13,6 +16,7 @@ function fans_control_macros_message(){
   bottom_line
 }
 
+# Fans control macros installation function
 function install_fans_control_macros(){
   fans_control_macros_message
   local yn
@@ -72,6 +76,7 @@ function install_fans_control_macros(){
   done
 }
 
+# Fans control macros removal function
 function remove_fans_control_macros(){
   fans_control_macros_message
   local yn

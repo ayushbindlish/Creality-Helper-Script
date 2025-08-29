@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# Summary: Script to manage install menu K1.
+
+
 set -e
 
+# Menu ui k1 installation function
 function install_menu_ui_k1() {
   top_line
   title '[ INSTALL MENU ]' "${yellow}"
@@ -50,6 +54,7 @@ function install_menu_ui_k1() {
   bottom_line
 }
 
+# Menu k1 installation function
 function install_menu_k1() {
   clear
   install_menu_ui_k1

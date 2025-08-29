@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage backup moonraker database.
+
+
 set -e
 
 function backup_moonraker_database_message(){

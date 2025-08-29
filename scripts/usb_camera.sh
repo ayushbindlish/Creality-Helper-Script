@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage usb camera.
+
+
 set -e
 
 function usb_camera_message(){
@@ -13,6 +16,7 @@ function usb_camera_message(){
   bottom_line
 }
 
+# Usb camera installation function
 function install_usb_camera(){
   usb_camera_message
   local yn
@@ -71,6 +75,7 @@ function install_usb_camera(){
   done
 }
 
+# Usb camera removal function
 function remove_usb_camera(){
   usb_camera_message
   local yn

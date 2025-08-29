@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage system menu.
+
+
 set -e
 
 function check_fw_version() {
@@ -81,6 +84,7 @@ function system_menu_ui() {
   bottom_line
 }
 
+# Manages the system menu
 function system_menu() {
   clear
   system_menu_ui

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage octoeverywhere.
+
+
 set -e
 
 function octoeverywhere_message(){
@@ -14,6 +17,7 @@ function octoeverywhere_message(){
   bottom_line
 }
 
+# Octoeverywhere installation function
 function install_octoeverywhere(){
   octoeverywhere_message
   local yn
@@ -43,6 +47,7 @@ function install_octoeverywhere(){
   done
 }
 
+# Octoeverywhere removal function
 function remove_octoeverywhere(){
   octoeverywhere_message
   local yn

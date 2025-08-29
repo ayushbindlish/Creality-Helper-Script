@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage customize menu 10SE.
+
+
 set -e
 
 function customize_menu_ui_10se() {

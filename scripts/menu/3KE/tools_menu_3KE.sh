@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage tools menu 3KE.
+
+
 set -e
 
 function tools_menu_ui_3ke() {

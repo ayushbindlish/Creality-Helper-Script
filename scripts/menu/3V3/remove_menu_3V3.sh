@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# Summary: Script to manage remove menu 3V3.
+
+
 set -e
 
+# Menu ui 3v3 removal function
 function remove_menu_ui_3v3() {
   top_line
   title '[ REMOVE MENU ]' "${yellow}"
@@ -47,6 +51,7 @@ function remove_menu_ui_3v3() {
   bottom_line
 }
 
+# Menu 3v3 removal function
 function remove_menu_3v3() {
   clear
   remove_menu_ui_3v3

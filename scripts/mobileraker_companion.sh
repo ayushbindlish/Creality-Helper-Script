@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage mobileraker companion.
+
+
 set -e
 
 function mobileraker_companion_message(){
@@ -13,6 +16,7 @@ function mobileraker_companion_message(){
   bottom_line
 }
 
+# Mobileraker companion installation function
 function install_mobileraker_companion(){
   mobileraker_companion_message
   local yn
@@ -49,6 +53,7 @@ function install_mobileraker_companion(){
   done
 }
 
+# Mobileraker companion removal function
 function remove_mobileraker_companion(){
   mobileraker_companion_message
   local yn

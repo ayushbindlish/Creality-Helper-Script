@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage moonraker obico.
+
+
 set -e
 
 function moonraker_obico_message(){
@@ -13,6 +16,7 @@ function moonraker_obico_message(){
   bottom_line
 }
 
+# Moonraker obico installation function
 function install_moonraker_obico(){
   moonraker_obico_message
   local yn
@@ -43,6 +47,7 @@ function install_moonraker_obico(){
   done
 }
 
+# Moonraker obico removal function
 function remove_moonraker_obico(){
   moonraker_obico_message
   local yn

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage git backup.
+
+
 set -e
 
 function git_backup_message(){
@@ -14,6 +17,7 @@ function git_backup_message(){
   bottom_line
 }
 
+# Git backup installation function
 function install_git_backup(){
   git_backup_message
   local yn
@@ -47,6 +51,7 @@ function install_git_backup(){
   done
 }
 
+# Git backup removal function
 function remove_git_backup(){
   git_backup_message
   local yn

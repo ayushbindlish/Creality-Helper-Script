@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage paths.
+
+
 set -e
 
 function set_paths() {

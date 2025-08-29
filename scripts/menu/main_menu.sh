@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Summary: Script to manage main menu.
 # Main entry point for the interactive text interface.  All menu navigation
 # starts here once `helper.sh` has loaded every script.
 
@@ -90,6 +91,7 @@ function main_menu_ui() {
   bottom_line
 }
 
+# Manages the main menu
 # Main menu loop.  Based on the user selection the appropriate sub menu is
 # displayed.  Each of the called functions is defined in a printer specific
 # script loaded by `helper.sh`.

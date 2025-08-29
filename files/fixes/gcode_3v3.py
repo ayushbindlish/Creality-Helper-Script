@@ -1,19 +1,26 @@
-# Parse gcode commands
-#
+"""G-code parser and dispatcher tuned for 3.3V microcontrollers."""
+
 # Copyright (C) 2016-2021  Kevin O'Connor <kevin@koconnor.net>
 #
 # This file may be distributed under the terms of the GNU GPLv3 license.
 import os, re, logging, collections, shlex
 from extras.tool import reportInformation
 
+
 class CommandError(Exception):
-    pass
+    """Exception raised when malformed or invalid G-code is encountered."""
+
 
 Coord = collections.namedtuple('Coord', ('x', 'y', 'z', 'e'))
 
+
 class GCodeCommand:
+    """Wrapper around a single parsed G-code command."""
+
     error = CommandError
+
     def __init__(self, gcode, command, commandline, params, need_ack):
+        """Store the raw command line and extracted parameters."""
         self._command = command
         self._commandline = commandline
         self._params = params
@@ -55,6 +62,7 @@ class GCodeCommand:
     class sentinel: pass
     def get(self, name, default=sentinel, parser=str, minval=None, maxval=None,
             above=None, below=None):
+        """Retrieve and optionally validate a parameter from the command."""
         value = self._params.get(name)
         if value is None:
             if default is self.sentinel:
@@ -90,9 +98,13 @@ class GCodeCommand:
 
 # Parse and dispatch G-Code commands
 class GCodeDispatch:
+    """Main entry point that routes G-code to registered handlers."""
+
     error = CommandError
     Coord = Coord
+
     def __init__(self, printer):
+        """Initialize dispatch tables and register core event handlers."""
         self.printer = printer
         self.is_fileinput = not not printer.get_start_args().get("debuginput")
         printer.register_event_handler("klippy:ready", self._handle_ready)
@@ -125,6 +137,7 @@ class GCodeDispatch:
         except:
             return False
     def register_command(self, cmd, func, when_not_ready=False, desc=None):
+        """Register a new gcode ``cmd`` handled by ``func``."""
         if func is None:
             old_cmd = self.ready_gcode_handlers.get(cmd)
             if cmd in self.ready_gcode_handlers:
@@ -144,6 +157,7 @@ class GCodeDispatch:
         if desc is not None:
             self.gcode_help[cmd] = desc
     def register_mux_command(self, cmd, key, value, func, desc=None):
+        """Register a multiplexed command."""
         prev = self.mux_commands.get(cmd)
         if prev is None:
             handler = lambda gcmd: self._cmd_mux(cmd, gcmd)
@@ -172,12 +186,14 @@ class GCodeDispatch:
     def _handle_disconnect(self):
         self._respond_state("Disconnect")
     def _handle_ready(self):
+        """Callback fired when the firmware signals it is ready."""
         self.is_printer_ready = True
         self.gcode_handlers = self.ready_gcode_handlers
         self._respond_state("Ready")
     # Parse input into commands
     args_r = re.compile('([A-Z_]+|[A-Z*/])')
     def _process_commands(self, commands, need_ack=True):
+        """Parse an iterable of raw lines into :class:`GCodeCommand` objects."""
         for line in commands:
             # Ignore comments and leading/trailing spaces
             line = origline = line.strip()
@@ -450,6 +466,8 @@ class GCodeDispatch:
 
 # Support reading gcode from a pseudo-tty interface
 class GCodeIO:
+    """Read raw G-code data from a file descriptor or pseudo terminal."""
+
     def __init__(self, printer):
         self.printer = printer
         printer.register_event_handler("klippy:ready", self._handle_ready)
@@ -490,7 +508,9 @@ class GCodeIO:
         if self.is_fileinput:
             self.printer.request_exit('error_exit')
     m112_r = re.compile('^(?:[nN][0-9]+)?\s*[mM]112(?:\s|$)')
+
     def _process_data(self, eventtime):
+        """Callback from the reactor when new data arrives on the fd."""
         # Read input, separate by newline, and add to pending_commands
         try:
             data = str(os.read(self.fd, 4096).decode())

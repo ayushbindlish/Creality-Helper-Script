@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage info menu 3V3.
+
+
 set -e
 
 function check_folder_3v3() {
