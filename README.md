@@ -48,3 +48,8 @@ The menu driven interface guides you through installing or removing features.
 A more complete guide is available on the [Wiki](https://guilouz.github.io/Creality-Helper-Script-Wiki/).
 
 <br />
+
+## For Developers
+
+See [Developer Guide](README.dev.md).
+
