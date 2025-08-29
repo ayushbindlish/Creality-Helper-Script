@@ -1,7 +1,23 @@
 #!/bin/sh
 
 set -e
-clear
+
+# Parse arguments
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -d|--debug)
+      export DEBUG=1
+      ;;
+  esac
+  shift
+done
+
+if [ -n "$DEBUG" ]; then
+  export PS4='+ $0:$LINENO '
+  set -x
+else
+  clear
+fi
 
 HELPER_SCRIPT_FOLDER="$(dirname "$(readlink -f "$0")")"
 for script in "${HELPER_SCRIPT_FOLDER}/scripts/"*.sh; do . "${script}"; done
