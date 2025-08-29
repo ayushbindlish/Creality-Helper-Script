@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage moonraker timelapse.
+
+
 set -e
 
 function moonraker_timelapse_message(){
@@ -13,6 +16,7 @@ function moonraker_timelapse_message(){
   bottom_line
 }
 
+# Moonraker timelapse installation function
 function install_moonraker_timelapse(){
   moonraker_timelapse_message
   local yn
@@ -57,6 +61,7 @@ function install_moonraker_timelapse(){
   done
 }
 
+# Moonraker timelapse removal function
 function remove_moonraker_timelapse(){
   moonraker_timelapse_message
   local yn

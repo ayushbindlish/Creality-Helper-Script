@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage tools menu E5M.
+
+
 set -e
 
 function tools_menu_ui_e5m() {

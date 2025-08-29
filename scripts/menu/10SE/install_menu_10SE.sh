@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# Summary: Script to manage install menu 10SE.
+
+
 set -e
 
+# Menu ui 10se installation function
 function install_menu_ui_10se() {
   top_line
   title '[ INSTALL MENU ]' "${yellow}"
@@ -43,6 +47,7 @@ function install_menu_ui_10se() {
   bottom_line
 }
 
+# Menu 10se installation function
 function install_menu_10se() {
   clear
   install_menu_ui_10se

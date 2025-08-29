@@ -24,9 +24,13 @@ A few notable features provided by this project:
 - **KAMP** – installs Klipper Adaptive Meshing & Purging and its settings.
 - **Timelapse** – adds the Moonraker timelapse component.
 
+# Developer Notes
+
 ## Debug Flag
 
 To enable verbose debugging output while developing, run the script with `DEBUG=1`:
+
+Run `./helper.sh -d` or `./helper.sh --debug` to enable debug mode. This exports `DEBUG=1`, sets `PS4='+ $0:$LINENO '` and enables shell tracing with `set -x` so each sourced script prints commands with file paths. When enabled, the `run` helper also prints the function it executes and skips clearing the screen.
 
 ```sh
 DEBUG=1 ./helper.sh
@@ -40,4 +44,3 @@ This sets the shell to trace executed commands so you can diagnose issues.
 2. Keep shell scripts POSIX compliant and run `sh -n` on modified scripts.
 3. Provide documentation and menu entries for new features.
 4. Submit a pull request with a clear description of your changes.
-

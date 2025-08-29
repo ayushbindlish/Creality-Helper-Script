@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# Summary: Script to manage custom boot display.
+
+
 set -e
 
+# Custom boot display message installation function
 function install_custom_boot_display_message(){
   top_line
   title 'Install Custom Boot Display' "${yellow}"
@@ -13,6 +17,7 @@ function install_custom_boot_display_message(){
   bottom_line
 }
 
+# Custom boot display message removal function
 function remove_custom_boot_display_message(){
   top_line
   title 'Remove Custom Boot Display' "${yellow}"
@@ -23,6 +28,7 @@ function remove_custom_boot_display_message(){
   bottom_line
 }
 
+# Custom boot display installation function
 function install_custom_boot_display(){
   install_custom_boot_display_message
   local yn
@@ -66,6 +72,7 @@ function install_custom_boot_display(){
   done
 }
 
+# Custom boot display removal function
 function remove_custom_boot_display(){
   remove_custom_boot_display_message
   local yn

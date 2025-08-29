@@ -1,10 +1,15 @@
+"""Software emulation of MCU pins for testing and development."""
+
 # Virtual Pins support
 #
 # Copyright (C) 2023 Pedro Lamas <pedrolamas@gmail.com>
 #
 # This file may be distributed under the terms of the GNU GPLv3 license.
 
+
 class VirtualPins:
+    """Registry that fabricates pseudo pins to satisfy Klipper interfaces."""
+
     def __init__(self, config):
         self._printer = config.get_printer()
         ppins = self._printer.lookup_object('pins')
@@ -16,10 +21,12 @@ class VirtualPins:
                                              self.handle_connect)
 
     def handle_connect(self):
+        """Invoke all callbacks once the printer connection is established."""
         for cb in self._config_callbacks:
             cb()
 
     def setup_pin(self, pin_type, pin_params):
+        """Create a virtual pin of ``pin_type`` with ``pin_params``."""
         ppins = self._printer.lookup_object('pins')
         name = pin_params['pin']
         if name in self._pins:
@@ -39,10 +46,12 @@ class VirtualPins:
         return pin
 
     def create_oid(self):
+        """Allocate a fake object id for internal tracking."""
         self._oid_count += 1
         return self._oid_count - 1
 
     def register_config_callback(self, cb):
+        """Register a callback to run when the printer connects."""
         self._config_callbacks.append(cb)
 
     def add_config_cmd(self, cmd, is_init=False, on_restart=False):
@@ -94,6 +103,8 @@ class VirtualPins:
         }
 
 class VirtualCommand:
+    """Minimal stand-in for MCU command objects."""
+
     def send(self, data=(), minclock=0, reqclock=0):
         pass
 
@@ -101,6 +112,8 @@ class VirtualCommand:
         pass
 
 class VirtualCommandQuery:
+    """Fake query object returning predefined responses."""
+
     def __init__(self, respformat, oid):
         entries = respformat.split()
         self._response = {}
@@ -116,6 +129,8 @@ class VirtualCommandQuery:
         return self._response
 
 class VirtualPin:
+    """Base class implementing generic pin behavior."""
+
     def __init__(self, mcu, pin_params):
         self._mcu = mcu
         self._name = pin_params['pin']
@@ -137,6 +152,8 @@ class VirtualPin:
         return self._real_mcu
 
 class DigitalOutVirtualPin(VirtualPin):
+    """Emulates a digital output pin."""
+
     def __init__(self, mcu, pin_params):
         VirtualPin.__init__(self, mcu, pin_params)
 
@@ -156,6 +173,8 @@ class DigitalOutVirtualPin(VirtualPin):
         }
 
 class PwmVirtualPin(VirtualPin):
+    """Emulates a PWM output pin."""
+
     def __init__(self, mcu, pin_params):
         VirtualPin.__init__(self, mcu, pin_params)
 
@@ -178,6 +197,8 @@ class PwmVirtualPin(VirtualPin):
         }
 
 class AdcVirtualPin(VirtualPin):
+    """Emulates an analog-to-digital converter pin."""
+
     def __init__(self, mcu, pin_params):
         VirtualPin.__init__(self, mcu, pin_params)
         self._callback = None
@@ -213,6 +234,8 @@ class AdcVirtualPin(VirtualPin):
         }
 
 class EndstopVirtualPin(VirtualPin):
+    """Emulates an endstop switch pin."""
+
     def __init__(self, mcu, pin_params):
         VirtualPin.__init__(self, mcu, pin_params)
         self._steppers = []
@@ -243,4 +266,5 @@ class EndstopVirtualPin(VirtualPin):
         }
 
 def load_config(config):
+    """Klipper entry point used to register the virtual pin chip."""
     return VirtualPins(config)

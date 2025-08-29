@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage useful macros.
+
+
 set -e
 
 function useful_macros_message(){
@@ -14,6 +17,7 @@ function useful_macros_message(){
   bottom_line
 }
 
+# Useful macros installation function
 function install_useful_macros(){
   useful_macros_message
   local yn
@@ -53,6 +57,7 @@ function install_useful_macros(){
   done
 }
 
+# Useful macros removal function
 function remove_useful_macros(){
   useful_macros_message
   local yn

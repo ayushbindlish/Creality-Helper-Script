@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage info menu 3KE.
+
+
 set -e
 
 function check_folder_3ke() {

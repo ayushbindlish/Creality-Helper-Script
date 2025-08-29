@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage customize menu E5M.
+
+
 set -e
 
 function customize_menu_ui_e5m() {

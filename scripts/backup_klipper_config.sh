@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage backup klipper config.
+
+
 set -e
 
 function backup_klipper_config_files_message(){

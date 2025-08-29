@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage fluidd.
+
+
 set -e
 
 function fluidd_message(){
@@ -27,6 +30,7 @@ function fluidd_3v3_message(){
   bottom_line
 }
 
+# Fluidd installation function
 function install_fluidd(){
   fluidd_message
   local yn
@@ -70,6 +74,7 @@ function install_fluidd(){
   done
 }
 
+# Fluidd removal function
 function remove_fluidd(){
   fluidd_message
   local yn
@@ -102,6 +107,7 @@ function remove_fluidd(){
   done
 }
 
+# Fluidd 3v3 installation function
 function install_fluidd_3v3(){
   fluidd_3v3_message
   local yn
@@ -148,6 +154,7 @@ function install_fluidd_3v3(){
   done
 }
 
+# Fluidd 3v3 removal function
 function remove_fluidd_3v3(){
   fluidd_3v3_message
   local yn

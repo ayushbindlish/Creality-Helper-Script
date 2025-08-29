@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage camera settings control.
+
+
 set -e
 
 function camera_settings_control_message(){
@@ -13,6 +16,7 @@ function camera_settings_control_message(){
   bottom_line
 }
 
+# Camera settings control installation function
 function install_camera_settings_control(){
   camera_settings_control_message
   local yn
@@ -52,6 +56,7 @@ function install_camera_settings_control(){
   done
 }
 
+# Camera settings control removal function
 function remove_camera_settings_control(){
   camera_settings_control_message
   local yn

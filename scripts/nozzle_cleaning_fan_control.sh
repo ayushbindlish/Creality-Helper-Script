@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage nozzle cleaning fan control.
+
+
 set -e
 
 function nozzle_cleaning_fan_control_message(){
@@ -13,6 +16,7 @@ function nozzle_cleaning_fan_control_message(){
   bottom_line
 }
 
+# Nozzle cleaning fan control installation function
 function install_nozzle_cleaning_fan_control(){
   nozzle_cleaning_fan_control_message
   local yn
@@ -51,6 +55,7 @@ function install_nozzle_cleaning_fan_control(){
   done
 }
 
+# Nozzle cleaning fan control removal function
 function remove_nozzle_cleaning_fan_control(){
   nozzle_cleaning_fan_control_message
   local yn

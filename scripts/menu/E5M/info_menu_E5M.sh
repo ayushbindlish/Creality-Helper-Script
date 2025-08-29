@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage info menu E5M.
+
+
 set -e
 
 function check_folder_e5m() {

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage guppyflo.
+
+
 set -e
 
 function guppyflo_message(){
@@ -13,6 +16,7 @@ function guppyflo_message(){
   bottom_line
 }
 
+# Guppyflo installation function
 function install_guppyflo(){
   guppyflo_message
   local yn
@@ -68,6 +72,7 @@ function install_guppyflo(){
   done
 }
 
+# Guppyflo removal function
 function remove_guppyflo(){
   guppyflo_message
   local yn

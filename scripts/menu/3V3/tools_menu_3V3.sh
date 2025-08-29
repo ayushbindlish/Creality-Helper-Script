@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Summary: Script to manage tools menu 3V3.
+
+
 set -e
 
 function tools_menu_ui_3v3() {
